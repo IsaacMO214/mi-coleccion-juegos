@@ -124,7 +124,101 @@ El videojuego se registró correctamente y apareció en la lista de juegos del s
 **Resultado final:**  
 Prueba aprobada.
 
-<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/12c0819a-4bdc-4d43-a646-9ba49370d8f2" />
+<img width="600" height="240" alt="Captura de pantalla 2026-03-16 143632" src="https://github.com/user-attachments/assets/11c43448-3e2f-42b4-b555-e88e356f24fc" />
 
 
+
+## Prueba 4 – Visualización de la lista de videojuegos
+
+**Objetivo:**  
+Verificar que el sistema muestre correctamente los videojuegos registrados en la base de datos.
+
+**Procedimiento:**  
+1. Se accedió a la sección "Mis Juegos".
+2. Se revisó la lista de videojuegos registrados previamente en el sistema.
+
+**Resultado esperado:**  
+El sistema debe mostrar correctamente la lista de videojuegos almacenados.
+
+**Resultado obtenido:**  
+La página mostró correctamente los videojuegos registrados en el sistema.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/e2329ab8-0863-4c07-a1ca-243b959e3a8a" />
+
+
+## Prueba 5 – Verificación del servicio JSON
+
+**Objetivo:**  
+Comprobar que el sistema utilice servicios que devuelvan datos en formato JSON.
+
+**Procedimiento:**  
+1. Se accedió al sitio web del proyecto.
+2. Se abrieron las herramientas de desarrollador del navegador.
+3. Se revisaron las peticiones de red realizadas por la aplicación.
+4. Se verificó que el servidor enviara datos en formato JSON.
+
+**Resultado esperado:**  
+El sistema debe devolver información estructurada en formato JSON.
+
+**Resultado obtenido:**  
+El sistema respondió correctamente mostrando datos en formato JSON con la información de los videojuegos registrados.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/b4d48868-5a1c-4922-a3e4-45e96e62d102" />
+
+## Prueba 6 – Verificación del servicio externo Google Maps
+
+**Objetivo:**  
+Comprobar que el sistema utilice correctamente un servicio externo para mostrar la ubicación de tiendas de videojuegos.
+
+**Procedimiento:**  
+1. Se accedió a la sección "Ubicar tienda" del sitio web.
+2. Se verificó la carga del mapa integrado en la página.
+
+**Resultado esperado:**  
+El mapa debe mostrarse correctamente permitiendo visualizar ubicaciones de tiendas cercanas.
+
+**Resultado obtenido:**  
+El mapa se cargó correctamente dentro del sitio web y permitió visualizar ubicaciones utilizando el servicio de Google Maps.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/6c98e738-7561-4feb-9250-01460574ca22" />
+
+## Prueba 7 – Validación de datos del formulario
+
+**Objetivo:**  
+Verificar que el sistema valide los datos ingresados en el formulario y muestre mensajes de error cuando los datos no sean correctos.
+
+**Procedimiento:**  
+1. Se accedió al formulario para agregar videojuegos.
+2. Se ingresaron datos incorrectos, dejando campos vacíos o con información inválida.
+3. Se intentó enviar el formulario.
+
+**Resultado esperado:**  
+El sistema debe mostrar mensajes de error y evitar que se guarden datos incorrectos.
+
+**Resultado obtenido:**  
+El sistema invalido los datos del formulario y mostró mensajes de error cuando los campos no eran correctos.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/5f4a4961-5103-46e2-ae25-8bacf6168257" />
+
+## Resultados obtenidos de las pruebas
+
+Después de ejecutar las pruebas del sistema se comprobó que la aplicación web funciona correctamente en sus principales funcionalidades. El sitio carga sin problemas y obtiene buenos resultados en las pruebas realizadas con Lighthouse.
+
+El formulario permite agregar videojuegos correctamente y los datos ingresados se almacenan en la base de datos y se muestran en la lista de juegos dentro del sitio. También se verificó que el servicio que devuelve información en formato JSON funciona adecuadamente.
+
+Además, el sistema integra correctamente el servicio externo de Google Maps para mostrar tiendas de videojuegos cercanas. Finalmente, se comprobó que el sistema valida los datos del formulario y muestra mensajes de error cuando los datos ingresados no son correctos.
+
+En general, las pruebas realizadas permitieron confirmar que el proyecto cumple con los requisitos establecidos y que sus funcionalidades principales operan de forma correcta.
 
