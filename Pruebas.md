@@ -30,3 +30,63 @@ Los criterios de aceptación del sistema son los siguientes:
   error cuando los datos no sean correctos.
 
 ## Resultados obtenidos de las pruebas
+
+## Prueba 1 – Evaluación del sitio con Lighthouse
+
+**Objetivo:**  
+Evaluar el rendimiento, accesibilidad, buenas prácticas y optimización SEO del sitio web.
+
+**Herramienta utilizada:**  
+Lighthouse integrado en el navegador Google Chrome.
+
+**Procedimiento:**  
+1. Se abrió el sitio web del proyecto en el navegador.
+2. Se accedió a las herramientas de desarrollador con Ctrl + Shift + I.
+3. Se seleccionó la pestaña Lighthouse.
+4. Se ejecutó el análisis seleccionando las categorías Performance, Accessibility, Best Practices y SEO.
+
+**Resultados obtenidos:**
+
+- Performance: 80
+- Accessibility: 88
+- Best Practices: 100
+- SEO: 90
+
+**Interpretación de los resultados:**  
+El sitio web presenta un buen desempeño general. El rendimiento es aceptable y las buenas prácticas obtuvieron una puntuación perfecta. La accesibilidad y el SEO también muestran buenos resultados, lo que indica que el sitio está optimizado y sigue recomendaciones adecuadas para el desarrollo web.
+
+**Aprobada**
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/8e6af405-ad9a-41f2-8243-93d262ea234f" />
+
+
+## Prueba 2 – Registro de videojuegos con formulario
+
+**Objetivo:**  
+Verificar que el formulario permita registrar videojuegos correctamente.
+
+**Procedimiento:**  
+1. Se accedió a la sección "Añadir Juego".
+2. Se ingresaron datos de prueba en el formulario.
+3. Se envió el formulario para registrar el videojuego.
+
+Datos de prueba utilizados:
+
+Nombre: Spiderman
+Genero: Accion  
+Año: 2018  
+Plataforma: Ps4,Ps5,Pc
+
+**Resultado esperado:**  
+El sistema debe registrar el videojuego y mostrarlo en la lista de juegos.
+
+**Resultado obtenido:**  
+El sistema registró correctamente el videojuego y lo mostró en la lista de juegos almacenados.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/4a8bfaeb-37ad-47f7-8c9c-b0fea32780ab" />
+
+
+
