@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Colección</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="icon"><i class="fi fi-rr-gamepad"></i></span>
+                <h2>Mi Colección</h2>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-target="view-db">
+                    <span class="icon"><i class="fi fi-rr-book-alt"></i></span> Mis Juegos
+                </button>
+                <button class="nav-btn" data-target="view-form">
+                    <span class="icon"><i class="fi fi-rr-add"></i></span> Añadir Juego
+                </button>
+                <button class="nav-btn" data-target="view-map">
+                    <span class="icon"><i class="fi fi-rr-marker"></i></span> Ubicar tienda
+                </button>
+                <button class="nav-btn" data-target="view-recommendations">
+                    <span class="icon"><i class="fi fi-rr-star"></i></span> Recomendaciones
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- View: Database list -->
+            <section id="view-db" class="view-section active">
+                <header class="section-header">
+                    <h1>Mis Juegos Locales</h1>
+                </header>
+                <div class="actions" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="search-input" placeholder="Buscar por título o género..."
+                        style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); flex: 1; max-width: 300px;">
+                </div>
+                <div id="db-error-msg" class="error-msg hidden"></div>
+                <div id="db-results" class="games-grid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </section>
+
+            <!-- View: Add Form -->
+            <section id="view-form" class="view-section">
+                <header class="section-header">
+                    <h1>Registrar Nuevo Juego</h1>
+                    <p>Agrega un nuevo título a tu colección.</p>
+                </header>
+                <div class="card-container form-card glass-panel">
+                    <form id="game-form">
+                        <div class="form-group">
+                            <label for="title">Título del Juego</label>
+                            <input type="text" id="title" name="title" placeholder="Ej. Elden Ring">
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Género</label>
+                            <select id="genre" name="genre" required>
+                                <option value="" disabled selected>Selecciona un género...</option>
+                                <option value="Acción">Acción</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="RPG">RPG</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Estrategia">Estrategia</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Plataformas">Plataformas</option>
+                                <option value="Puzzle">Puzzle</option>
+                                <option value="Conducción">Conducción</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Plataformas</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                        value="PlayStation 4"> PlayStation 4</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                        value="PlayStation 5"> PlayStation 5</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                        value="Xbox One"> Xbox One</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                        value="Xbox Series X/S"> Xbox Series X/S</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="PC">
+                                    PC</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                        value="Nintendo Switch 2"> Nintendo Switch 2</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="release_year">Año de Lanzamiento</label>
+                            <input type="number" id="release_year" name="release_year" placeholder="Ej. 2022">
+                        </div>
+                        <div id="form-error" class="error-msg hidden"></div>
+                        <div id="form-success" class="success-msg hidden"></div>
+                        <button type="submit" class="btn-primary" id="btn-submit-form">Guardar en Colección</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- View: Google Maps Store Locator -->
+            <section id="view-map" class="view-section">
+                <header class="section-header">
+                    <h1>Ubicar tienda</h1>
+                    <p>Encuentra tu tienda de videojuegos más cercana para expandir tu colección.</p>
+                </header>
+                <div class="actions">
+                    <button id="btn-get-location" class="btn-primary">Localizarme en el mapa</button>
+                    <span id="location-status"
+                        style="margin-left: 10px; font-size: 0.9rem; color: var(--text-secondary);"></span>
+                </div>
+                <div class="card-container glass-panel map-card">
+                    <div class="map-container">
+                        <iframe id="map-iframe"
+                            src="https://www.google.com/maps?q=tiendas+de+videojuegos+en+Ciudad+de+Mexico&hl=es&z=12&output=embed"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Recommendations (Third-Party API) -->
+            <section id="view-recommendations" class="view-section">
+                <header class="section-header">
+                    <h1>Juegos Gratuitos Recomendados</h1>
+                    <p>Descubre nuevos títulos gratuitos para PC traídos desde FreeToGame API.</p>
+                </header>
+                <div class="actions">
+                    <button id="btn-refresh-recommendations" class="btn-primary">
+                        <i class="fi fi-rr-refresh"></i> Buscar Otras Recomendaciones
+                    </button>
+                </div>
+                <div id="api-error-msg" class="error-msg hidden"></div>
+                <div id="recommendations-results" class="games-grid">
+                    <!-- API Cards injected via JS -->
+                </div>
+            </section>
+            
+            <footer class="site-footer">
+                <p>&copy; 2026 DTC GANG V3. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+
+        <!-- Edit Modal Overlay -->
+        <div id="edit-modal" class="modal-overlay hidden">
+            <div class="card-container form-card glass-panel" style="background: var(--bg-color);">
+                <header class="section-header" style="margin-bottom: 1rem;">
+                    <h2>Editar Juego</h2>
+                </header>
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="form-group">
+                        <label for="edit-title">Título del Juego</label>
+                        <input type="text" id="edit-title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-genre">Género</label>
+                        <select id="edit-genre" name="genre" required>
+                            <option value="Acción">Acción</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="RPG">RPG</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Estrategia">Estrategia</option>
+                            <option value="Shooter">Shooter</option>
+                            <option value="Plataformas">Plataformas</option>
+                            <option value="Puzzle">Puzzle</option>
+                            <option value="Conducción">Conducción</option>
+                            <option value="Terror">Terror</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Plataformas</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                    value="PlayStation 4"> PlayStation 4</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                    value="PlayStation 5"> PlayStation 5</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="Xbox One">
+                                Xbox One</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                    value="Xbox Series X/S"> Xbox Series X/S</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="PC">
+                                PC</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platforms[]"
+                                    value="Nintendo Switch 2"> Nintendo Switch 2</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-release_year">Año de Lanzamiento</label>
+                        <input type="number" id="edit-release_year" name="release_year">
+                    </div>
+                    <div id="edit-error" class="error-msg hidden"></div>
+                    <div style="display: flex; gap: 10px; margin-top: 1rem;">
+                        <button type="submit" class="btn-primary" id="btn-submit-edit">Guardar Cambios</button>
+                        <button type="button" class="btn-secondary" id="btn-close-edit">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
