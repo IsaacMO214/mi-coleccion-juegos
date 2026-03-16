@@ -86,7 +86,45 @@ El sistema registró correctamente el videojuego y lo mostró en la lista de jue
 **Resultado final:**  
 Prueba aprobada.
 
-<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/4a8bfaeb-37ad-47f7-8c9c-b0fea32780ab" />
+
+## Prueba 3 – Verificación de almacenamiento en base de datos
+
+**Objetivo:**  
+Comprobar que los videojuegos registrados mediante el formulario se almacenen correctamente en la base de datos.
+
+**Herramienta utilizada:**  
+Lighthouse integrado en el navegador Google Chrome.
+
+**Procedimiento:**  
+1. Se accedió a la sección "Añadir Juego".
+2. Se ingresaron datos de prueba en el formulario.
+3. Se envió el formulario para registrar el videojuego.
+4. Posteriormente se revisó la sección "Mis Juegos".
+
+**Resultados obtenidos:**
+
+- Performance: 96
+- Accessibility: 88
+- Best Practices: 100
+- SEO: 90
+
+Datos utilizados en la prueba:
+
+Nombre: GTA V  
+Genero: Acción  
+Año: 2013  
+Plataforma: Ps4,Ps5,Xbox,Pc
+
+**Resultado esperado:**  
+El videojuego registrado debe aparecer en la lista de juegos.
+
+**Resultado obtenido:**  
+El videojuego se registró correctamente y apareció en la lista de juegos del sistema.
+
+**Resultado final:**  
+Prueba aprobada.
+
+<img width="600" height="240" alt="image" src="https://github.com/user-attachments/assets/12c0819a-4bdc-4d43-a646-9ba49370d8f2" />
 
 
 
