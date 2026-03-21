@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugerencias - Mi Colección</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .nav-btn { text-decoration: none; display: flex; align-items: center; }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="icon"><i class="fi fi-rr-gamepad"></i></span>
+                <h2>Mi Colección</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-book-alt"></i></span> Mis Juegos
+                </a>
+                <a href="agregar.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-add"></i></span> Añadir Juego
+                </a>
+                <a href="tiendas.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-marker"></i></span> Ubicar tienda
+                </a>
+                <a href="recomendaciones.html" class="nav-btn active">
+                    <span class="icon"><i class="fi fi-rr-star"></i></span> Recomendaciones
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="view-recommendations" class="view-section active">
+                <header class="section-header">
+                    <h1>Juegos Gratuitos Recomendados</h1>
+                    <p>Descubre nuevos títulos gratuitos para PC traídos desde FreeToGame API.</p>
+                </header>
+                <div class="actions">
+                    <button id="btn-refresh-recommendations" class="btn-primary">
+                        <i class="fi fi-rr-refresh"></i> Buscar Otras Recomendaciones
+                    </button>
+                </div>
+                <div id="api-error-msg" class="error-msg hidden"></div>
+                <div id="recommendations-results" class="games-grid">
+                    <!-- API Cards injected via JS -->
+                </div>
+            </section>
+            
+            <footer class="site-footer">
+                <p>&copy; 2026 DTC GANG V3. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+    </div>
+    <script type="module" src="js/recomendaciones.js"></script>
+</body>
+
+</html>

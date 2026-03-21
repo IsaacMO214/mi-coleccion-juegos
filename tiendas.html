@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicar Tienda - Mi Colección</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .nav-btn { text-decoration: none; display: flex; align-items: center; }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="icon"><i class="fi fi-rr-gamepad"></i></span>
+                <h2>Mi Colección</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-book-alt"></i></span> Mis Juegos
+                </a>
+                <a href="agregar.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-add"></i></span> Añadir Juego
+                </a>
+                <a href="tiendas.html" class="nav-btn active">
+                    <span class="icon"><i class="fi fi-rr-marker"></i></span> Ubicar tienda
+                </a>
+                <a href="recomendaciones.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-star"></i></span> Recomendaciones
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="view-map" class="view-section active">
+                <header class="section-header">
+                    <h1>Ubicar tienda</h1>
+                    <p>Encuentra tu tienda de videojuegos más cercana para expandir tu colección.</p>
+                </header>
+                <div class="actions">
+                    <button id="btn-get-location" class="btn-primary">Localizarme en el mapa</button>
+                    <span id="location-status" style="margin-left: 10px; font-size: 0.9rem; color: var(--text-secondary);"></span>
+                </div>
+                <div class="card-container glass-panel map-card">
+                    <div class="map-container">
+                        <iframe id="map-iframe" src="https://www.google.com/maps?q=tiendas+de+videojuegos+en+Ciudad+de+Mexico&hl=es&z=12&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="site-footer">
+                <p>&copy; 2026 DTC GANG V3. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+    </div>
+    <script type="module" src="js/tiendas.js"></script>
+</body>
+
+</html>

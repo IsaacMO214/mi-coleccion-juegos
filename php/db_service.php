@@ -1,17 +1,14 @@
 <?php
 require_once "error_handling.php";
 require_once "setup_db.php";
+require_once __DIR__ . "/lib/recibeJson.php";
+require_once __DIR__ . "/lib/devuelveJson.php";
 
 $db = getDB();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1. Servicio que recibe y devuelve JSON
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-    
-    if ($data === null && !empty($json)) {
-        throw new ProblemDetailsError("El cuerpo de la solicitud no es un JSON válido.", 400);
-    }
+    // 1. Servicio que recibe y devuelve JSON usando las nuevas librerías
+    $data = recibeJson();
     
     $query = $data['query'] ?? '';
     $stmt = $db->prepare("SELECT * FROM juegos WHERE title LIKE ? OR genre LIKE ? ORDER BY id DESC");
@@ -24,5 +21,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $games = $stmt->fetchAll();
 }
 
-header('Content-Type: application/json');
-echo json_encode($games);
+devuelveJson($games);

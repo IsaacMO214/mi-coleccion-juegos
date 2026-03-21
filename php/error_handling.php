@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/lib/ProblemDetailsException.php';
+
 class ProblemDetailsError extends Exception {
     private $status;
     private $title;
@@ -38,7 +40,7 @@ class ProblemDetailsError extends Exception {
 }
 
 function muestraError(Throwable $e) {
-    if ($e instanceof ProblemDetailsError) {
+    if ($e instanceof ProblemDetailsError || $e instanceof ProblemDetailsException) {
         $e->sendResponse();
     } else {
         http_response_code(500);

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Juego - Mi Colección</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .nav-btn { text-decoration: none; display: flex; align-items: center; }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="icon"><i class="fi fi-rr-gamepad"></i></span>
+                <h2>Mi Colección</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-book-alt"></i></span> Mis Juegos
+                </a>
+                <a href="agregar.html" class="nav-btn active">
+                    <span class="icon"><i class="fi fi-rr-add"></i></span> Añadir Juego
+                </a>
+                <a href="tiendas.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-marker"></i></span> Ubicar tienda
+                </a>
+                <a href="recomendaciones.html" class="nav-btn">
+                    <span class="icon"><i class="fi fi-rr-star"></i></span> Recomendaciones
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="view-form" class="view-section active">
+                <header class="section-header">
+                    <h1>Registrar Nuevo Juego</h1>
+                    <p>Agrega un nuevo título a tu colección.</p>
+                </header>
+                <div class="card-container form-card glass-panel">
+                    <form id="game-form">
+                        <div class="form-group">
+                            <label for="title">Título del Juego</label>
+                            <input type="text" id="title" name="title" placeholder="Ej. Elden Ring">
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Género</label>
+                            <select id="genre" name="genre" required>
+                                <option value="" disabled selected>Selecciona un género...</option>
+                                <option value="Acción">Acción</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="RPG">RPG</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Estrategia">Estrategia</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Plataformas">Plataformas</option>
+                                <option value="Puzzle">Puzzle</option>
+                                <option value="Conducción">Conducción</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Plataformas</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="PlayStation 4"> PlayStation 4</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="PlayStation 5"> PlayStation 5</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="Xbox One"> Xbox One</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="Xbox Series X/S"> Xbox Series X/S</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="PC"> PC</label>
+                                <label class="checkbox-label"><input type="checkbox" name="platforms[]" value="Nintendo Switch 2"> Nintendo Switch 2</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="release_year">Año de Lanzamiento</label>
+                            <input type="number" id="release_year" name="release_year" placeholder="Ej. 2022">
+                        </div>
+                        <div id="form-error" class="error-msg hidden"></div>
+                        <div id="form-success" class="success-msg hidden"></div>
+                        <button type="submit" class="btn-primary" id="btn-submit-form">Guardar en Colección</button>
+                    </form>
+                </div>
+            </section>
+            
+            <footer class="site-footer">
+                <p>&copy; 2026 DTC GANG V3. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+    </div>
+    <script type="module" src="js/agregar.js"></script>
+</body>
+
+</html>

@@ -1,24 +1,20 @@
 <?php
 require_once "error_handling.php";
+require_once __DIR__ . "/lib/recibeJson.php";
+require_once __DIR__ . "/lib/devuelveJson.php";
 
 // Expect POST request with JSON payload
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
-
-if ($data === null) {
-    throw new ProblemDetailsError("El cuerpo de la solicitud no es un JSON válido.", 400);
-}
+$data = recibeJson();
 
 if (empty($data["gameId"])) {
-    throw new ProblemDetailsError("Falta el campo requerido: 'gameId'.", 400);
+    throw new ProblemDetailsError("Falta el campo requerido: 'gameId'.", 400); // Mantenemos el mismo, o podríamos usar ProblemDetailsException
 }
 
 // Mock some logic for the JSON response
 $gameId = (int) $data["gameId"];
 $statusMessage = "Procesamiento JSON exitoso. Recibimos el ID: " . $gameId;
 
-header('Content-Type: application/json');
-echo json_encode([
+devuelveJson([
     "success" => true,
     "message" => $statusMessage,
     "timestamp" => date('c')
