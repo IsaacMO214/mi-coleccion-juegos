@@ -72,12 +72,12 @@ Selenium IDE.
 1. Se accedió a Selenium IDE.
 2. Se ejecutó todo el procedimiento para ingresar los datos de un nuevo juego.
 3. Se envió el formulario (desde Selenium IDE).
-4. Se comprobó que si se realizara el registro. 
+4. Se comprobó que el registro se realizara correctamente. 
 
 Datos de prueba utilizados:
 
 Nombre: Lies of P
-Genero: RPG
+Género: RPG
 Año: 2023
 Plataforma: Ps4,Ps5,Pc
 
@@ -108,13 +108,10 @@ Selenium IDE.
 4. Posteriormente se revisó la sección "Mis Juegos".
 
 
-**Resultados obtenidos:**
-
-
 Datos de prueba utilizados:
 
 Nombre: Lies of P
-Genero: RPG
+Género: RPG
 Año: 2023
 Plataforma: Ps4,Ps5,Pc
 
@@ -218,7 +215,7 @@ Verificar que el sistema valide los datos ingresados en el formulario y muestre 
 El sistema debe mostrar mensajes de error y evitar que se guarden datos incorrectos.
 
 **Resultado obtenido:**  
-El sistema invalido los datos del formulario y mostró mensajes de error cuando los campos no eran correctos.
+El sistema invalidó los datos del formulario y mostró mensajes de error cuando los campos no eran correctos.
 
 **Resultado final:**  
 Prueba aprobada.
@@ -227,7 +224,7 @@ Prueba aprobada.
 <img width="600" height="240" alt="Campos Vacios" src="Imagenes/Campos_vacios.png" />
 
 
-## Resultados obtenidos de las pruebas
+## Conclusión de las pruebas
 
 Después de ejecutar las pruebas del sistema se comprobó que la aplicación web funciona correctamente en sus principales funcionalidades. El sitio carga sin problemas y obtiene buenos resultados en las pruebas realizadas con Lighthouse.
 
