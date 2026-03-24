@@ -1,52 +1,43 @@
-import { consume } from './lib/consume.js';
-import { muestraError } from './lib/muestraError.js';
+import "./lib/manejaErrores.js"
+import { consume } from "./lib/consume.js"
+import { enviaFormRecibeJson } from "./lib/enviaFormRecibeJson.js"
 
-document.addEventListener("DOMContentLoaded", () => {
-    // ---- Form Service Logic ----
-    const gameForm = document.getElementById("game-form");
-    const btnSubmitForm = document.getElementById("btn-submit-form");
-    const formError = document.getElementById("form-error");
-    const formSuccess = document.getElementById("form-success");
+/** @type {HTMLFormElement | null} */
+const gameForm = document.querySelector("#game-form")
 
-    if (gameForm) {
-        gameForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            if (formError) formError.classList.add("hidden");
-            if (formSuccess) formSuccess.classList.add("hidden");
-            
-            const originalBtnText = btnSubmitForm ? btnSubmitForm.textContent : "Guardar";
-            if (btnSubmitForm) {
-                btnSubmitForm.textContent = "Guardando...";
-                btnSubmitForm.disabled = true;
-            }
+/** @type {HTMLButtonElement | null} */
+const btnSubmitForm = document.querySelector("#btn-submit-form")
 
-            try {
-                const formData = new FormData(gameForm);
-                
-                const res = await consume(fetch("php/form_service.php", {
-                    method: "POST",
-                    body: formData
-                }));
+/** @type {HTMLDivElement | null} */
+const formError = document.querySelector("#form-error")
 
-                const result = await res.json();
-                if (formSuccess) {
-                    formSuccess.textContent = result.message || "Guardado con éxito.";
-                    formSuccess.classList.remove("hidden");
-                }
-                gameForm.reset();
+/** @type {HTMLDivElement | null} */
+const formSuccess = document.querySelector("#form-success")
 
-            } catch (err) {
-                if (formError) {
-                    formError.textContent = err.message || "Error desconocido";
-                    formError.classList.remove("hidden");
-                }
-                muestraError(err);
-            } finally {
-                if (btnSubmitForm) {
-                    btnSubmitForm.textContent = originalBtnText;
-                    btnSubmitForm.disabled = false;
-                }
-            }
-        });
-    }
-});
+if (gameForm) {
+    gameForm.addEventListener("submit", async (e) => {
+        e.preventDefault()
+        if (formError) formError.classList.add("hidden")
+        if (formSuccess) formSuccess.classList.add("hidden")
+
+        const originalBtnText = btnSubmitForm ? btnSubmitForm.textContent : "Guardar"
+        if (btnSubmitForm) {
+            btnSubmitForm.textContent = "Guardando..."
+            btnSubmitForm.disabled = true
+        }
+
+        const res = await consume(enviaFormRecibeJson("php/form_service.php", gameForm))
+        const result = await res.json()
+
+        if (formSuccess) {
+            formSuccess.textContent = result.message || "Guardado con éxito."
+            formSuccess.classList.remove("hidden")
+        }
+        gameForm.reset()
+
+        if (btnSubmitForm) {
+            btnSubmitForm.textContent = originalBtnText
+            btnSubmitForm.disabled = false
+        }
+    })
+}

@@ -1,21 +1,24 @@
 <?php
-require_once "error_handling.php";
+
+require_once __DIR__ . "/lib/manejaErrores.php";
+require_once __DIR__ . "/lib/BAD_REQUEST.php";
 require_once __DIR__ . "/lib/recibeJson.php";
+require_once __DIR__ . "/lib/ProblemDetailsException.php";
 require_once __DIR__ . "/lib/devuelveJson.php";
 
-// Expect POST request with JSON payload
 $data = recibeJson();
 
-if (empty($data["gameId"])) {
-    throw new ProblemDetailsError("Falta el campo requerido: 'gameId'.", 400); // Mantenemos el mismo, o podríamos usar ProblemDetailsException
-}
+if (empty($data["gameId"]))
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "Falta el campo \"gameId\".",
+        "type"   => "/errors/faltagameid.html"
+    ]);
 
-// Mock some logic for the JSON response
 $gameId = (int) $data["gameId"];
-$statusMessage = "Procesamiento JSON exitoso. Recibimos el ID: " . $gameId;
 
 devuelveJson([
-    "success" => true,
-    "message" => $statusMessage,
-    "timestamp" => date('c')
+    "success"   => true,
+    "message"   => "Procesamiento JSON exitoso. Recibimos el ID: " . $gameId,
+    "timestamp" => date("c")
 ]);

@@ -1,18 +1,27 @@
 <?php
 
-class ProblemDetailsException extends Exception {
-    private $content;
+require_once __DIR__ . "/INTERNAL_SERVER_ERROR.php";
 
-    public function __construct(array $content) {
-        parent::__construct($content['title'] ?? 'Error');
-        $this->content = $content;
-    }
+/**
+ * Detalle de los errores devueltos por un servicio.
+ */
+class ProblemDetailsException extends Exception
+{
+    public array $problemDetails;
 
-    public function sendResponse() {
-        $status = $this->content['status'] ?? 400;
-        http_response_code($status);
-        header("Content-Type: application/problem+json; charset=utf-8");
-        echo json_encode($this->content);
-        exit();
+    public function __construct(
+        array $problemDetails,
+    ) {
+        parent::__construct(
+            isset($problemDetails["detail"])
+                ? $problemDetails["detail"]
+                : (isset($problemDetails["title"])
+                    ? $problemDetails["title"]
+                    : "Error"),
+            isset($problemDetails["status"])
+                ? $problemDetails["status"]
+                : INTERNAL_SERVER_ERROR
+        );
+        $this->problemDetails = $problemDetails;
     }
 }

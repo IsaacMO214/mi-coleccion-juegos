@@ -1,7 +1,9 @@
 <?php
-require_once "error_handling.php";
 
-// Free public API for games
+require_once __DIR__ . "/lib/manejaErrores.php";
+require_once __DIR__ . "/lib/ProblemDetailsException.php";
+require_once __DIR__ . "/lib/devuelveJson.php";
+
 $url = "https://www.freetogame.com/api/games?platform=pc&sort-by=release-date";
 
 $opts = [
@@ -11,13 +13,16 @@ $opts = [
     ]
 ];
 
-$context = stream_context_create($opts);
-
+$context  = stream_context_create($opts);
 $response = @file_get_contents($url, false, $context);
 
-if ($response === false) {
-    throw new ProblemDetailsError("Error al contactar el servicio de terceros.", 502);
-}
+if ($response === false)
+    throw new ProblemDetailsException([
+        "status" => 502,
+        "title"  => "No se pudo contactar el servicio de terceros (FreeToGame).",
+        "type"   => "/errors/errorexterno.html"
+    ]);
 
-header('Content-Type: application/json');
-echo $response;
+$data = json_decode($response);
+
+devuelveJson($data);

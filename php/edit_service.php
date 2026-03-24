@@ -1,57 +1,63 @@
 <?php
-require_once "error_handling.php";
+
+require_once __DIR__ . "/lib/manejaErrores.php";
+require_once __DIR__ . "/lib/BAD_REQUEST.php";
+require_once __DIR__ . "/lib/recibeTexto.php";
+require_once __DIR__ . "/lib/recibeEnteroObligatorio.php";
+require_once __DIR__ . "/lib/ProblemDetailsException.php";
+require_once __DIR__ . "/lib/devuelveJson.php";
 require_once "setup_db.php";
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    throw new ProblemDetailsError("Método no permitido. Use POST.", 405);
-}
+$id    = recibeEnteroObligatorio("id");
+$title = recibeTexto("title");
+$genre = recibeTexto("genre");
+$release_year = recibeTexto("release_year");
+$platforms_raw = $_POST["platforms"] ?? [];
+$platforms = is_array($platforms_raw)
+    ? implode(", ", array_map("trim", $platforms_raw))
+    : trim($platforms_raw);
 
-$id = trim($_POST["id"] ?? "");
-$title = trim($_POST["title"] ?? "");
-$genre = trim($_POST["genre"] ?? "");
-$platforms_array = $_POST["platforms"] ?? [];
-$platforms = is_array($platforms_array) ? implode(", ", array_map('trim', $platforms_array)) : trim($platforms_array);
-$release_year = trim($_POST["release_year"] ?? "");
+if ($title === false || $title === "")
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "Falta el título del juego.",
+        "type"   => "/errors/faltatitle.html"
+    ]);
 
-if (empty($id) || !is_numeric($id)) {
-    throw new ProblemDetailsError("ID inválido para editar.", 400);
-}
+if ($genre === false || $genre === "")
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "Falta el género del juego.",
+        "type"   => "/errors/faltagenre.html"
+    ]);
+
+if ($platforms === "")
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "Debes seleccionar al menos una plataforma.",
+        "type"   => "/errors/faltaplatforms.html"
+    ]);
+
+if (
+    $release_year === false
+    || $release_year === ""
+    || !is_numeric($release_year)
+    || (int)$release_year < 1950
+    || (int)$release_year > 2100
+)
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "El año de lanzamiento es inválido (debe estar entre 1950 y 2100).",
+        "type"   => "/errors/faltareleaseyear.html"
+    ]);
 
 $db = getDB();
+$stmt = $db->prepare(
+    "UPDATE juegos SET title = ?, genre = ?, platforms = ?, release_year = ? WHERE id = ?"
+);
+$stmt->execute([$title, $genre, $platforms, (int)$release_year, $id]);
 
-// Build dynamic update
-$updates = [];
-$params = [];
-
-if (!empty($title)) {
-    $updates[] = "title = ?";
-    $params[] = $title;
-}
-if (!empty($genre)) {
-    $updates[] = "genre = ?";
-    $params[] = $genre;
-}
-if (!empty($platforms)) {
-    $updates[] = "platforms = ?";
-    $params[] = $platforms;
-}
-if ($release_year !== "" && is_numeric($release_year)) {
-    $updates[] = "release_year = ?";
-    $params[] = (int)$release_year;
-}
-
-if (empty($updates)) {
-    throw new ProblemDetailsError("No hay campos válidos para actualizar.", 400);
-}
-
-$params[] = (int)$id;
-$sql = "UPDATE juegos SET " . implode(", ", $updates) . " WHERE id = ?";
-
-$stmt = $db->prepare($sql);
-$stmt->execute($params);
-
-header('Content-Type: application/json');
-echo json_encode([
+devuelveJson([
     "success" => true,
     "message" => "Juego editado exitosamente."
 ]);
