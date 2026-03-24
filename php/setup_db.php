@@ -1,5 +1,5 @@
 <?php
-require_once "error_handling.php";
+require_once __DIR__ . "/lib/manejaErrores.php";
 
 function getDB() {
     $dbPath = __DIR__ . '/games.db';

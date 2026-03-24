@@ -3,19 +3,32 @@
 require_once __DIR__ . "/lib/manejaErrores.php";
 require_once __DIR__ . "/lib/BAD_REQUEST.php";
 require_once __DIR__ . "/lib/recibeTexto.php";
-require_once __DIR__ . "/lib/recibeEnteroObligatorio.php";
 require_once __DIR__ . "/lib/ProblemDetailsException.php";
 require_once __DIR__ . "/lib/devuelveJson.php";
 require_once "setup_db.php";
 
-$id    = recibeEnteroObligatorio("id");
-$title = recibeTexto("title");
-$genre = recibeTexto("genre");
+$id           = recibeTexto("id");
+$title        = recibeTexto("title");
+$genre        = recibeTexto("genre");
 $release_year = recibeTexto("release_year");
 $platforms_raw = $_POST["platforms"] ?? [];
 $platforms = is_array($platforms_raw)
     ? implode(", ", array_map("trim", $platforms_raw))
     : trim($platforms_raw);
+
+if ($id === false || $id === "")
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "Falta el id del juego.",
+        "type"   => "/errors/faltaid.html"
+    ]);
+
+if (!is_numeric($id))
+    throw new ProblemDetailsException([
+        "status" => BAD_REQUEST,
+        "title"  => "El id debe ser un número entero.",
+        "type"   => "/errors/faltaid.html"
+    ]);
 
 if ($title === false || $title === "")
     throw new ProblemDetailsException([
@@ -55,7 +68,7 @@ $db = getDB();
 $stmt = $db->prepare(
     "UPDATE juegos SET title = ?, genre = ?, platforms = ?, release_year = ? WHERE id = ?"
 );
-$stmt->execute([$title, $genre, $platforms, (int)$release_year, $id]);
+$stmt->execute([$title, $genre, $platforms, (int)$release_year, (int)$id]);
 
 devuelveJson([
     "success" => true,
