@@ -16,14 +16,17 @@ import { muestraError } from "./muestraError.js"
 
 window.onerror = function (
     /** @type {string} */ _message,
-    /** @type {string} */ _url,
+    /** @type {string} */ url,
     /** @type {number} */ _line,
     /** @type {number} */ _column,
     /** @type {Error} */ errorObject
 ) {
+    // Ignorar errores de scripts inyectados por el servidor de hosting
+    if (url && !url.startsWith(window.location.origin)) return false
     muestraError(errorObject)
     return true
 }
+
 
 window.addEventListener("unhandledrejection", event => {
     muestraError(event.reason)
