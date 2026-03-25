@@ -7,13 +7,23 @@ require_once "setup_db.php";
 
 $db = getDB();
 
-// ?id=X → devuelve un solo juego (para la página de editar)
+// ?id=X → devuelve un juego en formato para muestraObjeto (editar.html)
 if (isset($_GET["id"])) {
     $id = recibeTexto("id");
     $stmt = $db->prepare("SELECT * FROM juegos WHERE id = ?");
     $stmt->execute([$id]);
     $game = $stmt->fetch();
-    devuelveJson($game);
+
+    // Formato compatible con muestraObjeto.js:
+    // Campos simples → {"campo": {"value": valor}}
+    // Plataformas → array (para que muestraArray active los checkboxes)
+    devuelveJson([
+        "id"           => ["value" => $game["id"]],
+        "title"        => ["value" => $game["title"]],
+        "genre"        => ["value" => $game["genre"]],
+        "release_year" => ["value" => $game["release_year"]],
+        "platforms"    => array_map("trim", explode(",", $game["platforms"]))
+    ]);
 }
 
 // ?query=texto → búsqueda por título o género

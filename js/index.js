@@ -1,12 +1,10 @@
 import "./lib/manejaErrores.js"
 import { consume } from "./lib/consume.js"
 import { recibeJson } from "./lib/recibeJson.js"
+import { accionElimina } from "./lib/accionElimina.js"
 
 /** @type {HTMLDivElement | null} */
 const dbResults = document.querySelector("#db-results")
-
-/** @type {HTMLDivElement | null} */
-const dbErrorMsg = document.querySelector("#db-error-msg")
 
 /** @type {HTMLInputElement | null} */
 const searchInput = document.querySelector("#search-input")
@@ -18,9 +16,8 @@ const btnBuscar = document.querySelector("#btn-buscar")
 const btnTodos = document.querySelector("#btn-todos")
 
 const mostrarJuegos = async (url) => {
-    if (!dbResults || !dbErrorMsg) return
+    if (!dbResults) return
 
-    dbErrorMsg.classList.add("hidden")
     dbResults.innerHTML = "<p>Cargando juegos...</p>"
 
     const res = await consume(recibeJson(url))
@@ -31,6 +28,7 @@ const mostrarJuegos = async (url) => {
         return
     }
 
+    // Cada tarjeta tiene un <form> para eliminar, compatible con accionElimina
     dbResults.innerHTML = games.map(game => `
         <div class="game-card">
             <h3>${game.title}</h3>
@@ -41,9 +39,13 @@ const mostrarJuegos = async (url) => {
                 <a href="editar.html?id=${game.id}" class="btn-sm btn-edit">
                     <i class="fi fi-rr-edit"></i> Editar
                 </a>
-                <button class="btn-sm btn-delete" onclick="eliminarJuego(${game.id})">
-                    <i class="fi fi-rr-trash"></i> Eliminar
-                </button>
+                <form style="display:inline" onsubmit="return false">
+                    <input type="hidden" name="id" value="${game.id}">
+                    <button type="button" class="btn-sm btn-delete"
+                        onclick="eliminarJuego(this.closest('form'))">
+                        <i class="fi fi-rr-trash"></i> Eliminar
+                    </button>
+                </form>
             </div>
         </div>
     `).join("")
@@ -60,19 +62,11 @@ if (btnBuscar) {
 }
 
 if (btnTodos) {
-    btnTodos.addEventListener("click", () => {
-        mostrarJuegos("php/db_service.php")
-    })
+    btnTodos.addEventListener("click", () => mostrarJuegos("php/db_service.php"))
 }
 
-window["eliminarJuego"] = async (id) => {
-    if (!confirm("¿Eliminar este juego?")) return
-
-    const formData = new FormData()
-    formData.append("id", id)
-
-    await consume(fetch("php/delete_service.php", { method: "POST", body: formData }))
-    mostrarJuegos("php/db_service.php")
-}
+// Expuesto globalmente para el onclick dinámico
+window["eliminarJuego"] = (/** @type {HTMLFormElement} */ formulario) =>
+    accionElimina("php/delete_service.php", formulario, "¿Eliminar este juego?", "index.html")
 
 mostrarJuegos("php/db_service.php")

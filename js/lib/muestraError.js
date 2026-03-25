@@ -2,7 +2,7 @@ import { ProblemDetailsError } from "./ProblemDetailsError.js"
 
 /**
  * Muestra los datos de una Error en la consola y en un cuadro de alerta.
- * @param { ProblemDetailsError | Error | null | unknown } error descripción del error.
+ * @param { ProblemDetailsError | Error | null } error descripción del error.
  */
 export function muestraError(error) {
 
@@ -29,15 +29,11 @@ export function muestraError(error) {
   console.error(error, problemDetails)
   alert(mensaje)
 
- } else if (error instanceof Error) {
+ } else {
 
   console.error(error)
   alert(error.message)
 
- } else {
-    // Adding fallback to support arbitrary objects
-    console.error(error);
-    alert(String(error));
  }
 
 }
